@@ -1,0 +1,113 @@
+﻿
+@inject IDialogService DialogService
+@using System.IdentityModel.Tokens.Jwt;
+@inject HttpClient _httpClient
+@using Newtonsoft.Json;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ISnackbar Snackbar
+@inject NavigationManager nav
+@inject TrackSpense.Client.StateContainers.TransactionStateContainer transactionState;
+
+<div class="ma-6 d-flex  justify-center">
+<MudGrid Spacing="@spacing" Justify="Justify.Center">
+        @if (transactions is not null)
+        {
+            @foreach (var transaction in transactions)
+            {
+                <MudItem xs="11">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h4" TypoWeight="TypoWeight.Bold">@transaction.TransactionAmount</MudText>
+                                <MudText Typo="Typo.body2">@transaction.TransactionName</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton @onclick="(e) => UpdateTransaction(transaction)" Icon="@Icons.Material.Filled.Edit" Color="Color.Default" />
+                                <MudIconButton @onclick="() => deleteTransaction(transaction.TransactionId)" Icon="@Icons.Material.Filled.Delete" Color="Color.Secondary" />
+
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText>@transaction.TransactionDate</MudText>
+                            <MudText Typo="Typo.body2">@transaction.TransactionDescription</MudText>
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudText Variant="Variant.Text" Color="Color.Tertiary">@transaction.TransactionCategory</MudText>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+
+        }
+    </MudGrid>
+
+</div>
+@code {
+    public int spacing { get; set; } = 4;
+    List<TransactionModel> transactions;
+    private void OpenDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<EditTransaction>("Simple Dialog", options);
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (transactionState.Value == null)
+        {
+            string token = await localStorage.GetItemAsync<string>("jwt-access-token");
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            string? userId = jwtSecurityToken.Claims.FirstOrDefault(claim => claim.Type == "Id")!.Value;
+
+            HttpResponseMessage? response = null;
+
+            if (userId is null)
+            {
+                response = null;
+            }
+            else
+            {
+                string url = $"/Transaction/GetTransactions?userId={userId}";
+                response = await _httpClient.GetAsync(url);
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                transactions = JsonConvert.DeserializeObject<List<TransactionModel>>(responseContent);
+
+                transactionState.SetValue(transactions);
+
+            }
+        }
+        else
+        {
+            transactions = transactionState.Value;
+        }
+
+    }  
+    private async Task deleteTransaction(string TransactionId)
+    {
+        string url = $"/Transaction/DeleteTransaction?transactionId={TransactionId}";
+        var response = await _httpClient.DeleteAsync(url);
+        Snackbar.Add("Transaction Deleted", MudBlazor.Severity.Error);
+        nav.NavigateTo("/transactions", true);
+
+
+    }
+    private async Task UpdateTransaction(TransactionModel transaction)
+    {
+        var parameters = new DialogParameters { ["transaction"] = transaction };
+
+        var dialog = await DialogService.ShowAsync<EditTransaction>("Edit Transaction", parameters);
+        var result = await dialog.Result;
+    }
+
+
+
+}
+

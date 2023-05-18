@@ -1,0 +1,57 @@
+﻿@page "/transaction/add"
+@using System.Text.Json;
+@using System.Text;
+@using System.IdentityModel.Tokens.Jwt;
+@inject HttpClient _httpClient
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ISnackbar Snackbar
+@inject NavigationManager nav
+@using Newtonsoft.Json;
+@inject TrackSpense.Client.StateContainers.CategoryStateContainer categoryState;
+@inject TrackSpense.Client.StateContainers.TransactionStateContainer transactionState;
+
+<div class="ma-6 d-flex  justify-center">
+    <MudCard Width="500px">
+        <MudForm Model="transactionModel" @ref="form" Validation="transactionValidator.ValidateValue">
+            <MudCardContent>
+
+                @if (!string.IsNullOrEmpty(APIErrorMessage))
+                {
+                    <MudChip Class="d-flex justify-center" Color="Color.Error">
+                        <h3>@APIErrorMessage</h3>
+                    </MudChip>
+                }
+
+
+                <MudTextField @bind-Value="transactionModel.TransactionName"
+                              For="@(() => transactionModel.TransactionName)"
+                              Immediate="true"
+                              Label="Transaction Name"  />
+                <MudTextField @bind-Value="transactionModel.TransactionDescription"
+                              For="@(() => transactionModel.TransactionDescription)"
+                              Immediate="true"
+                              Label="Description"  />
+
+                <MudSelect @bind-Value="transactionModel.TransactionCategory"
+                           For="@(() => transactionModel.TransactionCategory)" Label="Category" AnchorOrigin="Origin.BottomCenter" Required>
+                    @if (categories is not null)
+                    {
+                        @foreach (var category in categories)
+                        {
+                            <MudSelectItem Value="@(category.CategoryName)" />
+                        }
+                    }
+                </MudSelect>
+
+                <MudTextField @bind-Value="transactionModel.TransactionAmount"
+                              For="@(() => transactionModel.TransactionAmount)"
+                              Immediate="true"
+                              Label="Amount" />
+            </MudCardContent>
+
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="AddTransactionAsync">Add Transaction</MudButton>
+            </MudCardActions>
+        </MudForm>
+    </MudCard>
+</div>

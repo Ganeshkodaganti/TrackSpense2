@@ -1,0 +1,12 @@
+﻿.left-half {
+    height: 95vh;
+}
+
+.right-half {
+    height: 95vh;
+}
+
+.scrollable-content {
+    max-height: calc(100vh - 64px); /* Subtract the height of the app bar if applicable */
+}
+

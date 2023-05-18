@@ -1,0 +1,43 @@
+﻿@page "/transactions"
+
+<MudContainer Class="remove-container-margin">
+    <MudGrid Container="Container.Fluid">
+        <MudItem xs="12" md="12">
+            <div class="right-half" style="overflow-x:hidden">
+                <div class="scrollable-content">
+                    <MudGrid Spacing="4" Justify="Justify.Center">
+                        <!-- Content for the right half goes here -->
+                        <MudItem xs="6">
+                            <MudCard >
+                                <TransactionChart></TransactionChart>
+                            </MudCard>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudCard Height="30vh">
+                                <MudCardHeader>
+                                    <MudText Typo="Typo.h5" Color="Color.Dark">Most Spent On :</MudText>
+                                </MudCardHeader>
+                               @* <MostSpent />*@
+                            </MudCard>
+                        </MudItem>
+
+                        <MudGrid Spacing="4" Justify="Justify.Center">
+
+                            @*@for (int i = 0; i < 20; ++i)
+                            {
+                                <MudItem xs="12">
+                                    <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">CHECK CHECK</MudPaper>
+                                </MudItem>
+                            }*@
+                            <TransactionDisplay />
+
+                        </MudGrid>
+                    </MudGrid>
+                </div>
+            </div>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+@code {
+
+}

@@ -1,0 +1,54 @@
+﻿@using System.IdentityModel.Tokens.Jwt;
+@inject HttpClient _httpClient
+@using Newtonsoft.Json;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ISnackbar Snackbar
+@inject NavigationManager nav
+@inject TrackSpense.Client.StateContainers.SummaryStateContainer sumState
+
+<MudCardContent>
+    @if (summary is not null)
+    {
+        <MudText Typo="Typo.h2" Style="color:blue" Align="Align.Center"><b>@summary[0].Key</b></MudText>
+    }
+</MudCardContent>
+@code {
+
+    List<SummaryItem> summary;
+
+    protected override async Task OnInitializedAsync()
+    {
+        string token = await localStorage.GetItemAsync<string>("jwt-access-token");
+        var handler = new JwtSecurityTokenHandler();
+        var jwtSecurityToken = handler.ReadJwtToken(token);
+        string? userId = jwtSecurityToken.Claims.FirstOrDefault(claim => claim.Type == "Id")!.Value;
+
+        HttpResponseMessage? response = null;
+
+        if (userId is null)
+        {
+            response = null;
+        }
+        else
+        {
+            string url = $"/Transaction/CategorySummary?userId={userId}";
+            response = await _httpClient.GetAsync(url);
+        }
+
+        if (response.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            summary = JsonConvert.DeserializeObject<List<SummaryItem>>(responseContent);
+
+            sumState.SetValue(summary);
+
+
+
+        }
+        else
+        {
+            Console.WriteLine($"The request failed with status code: {response.StatusCode}");
+        }
+    }
+}

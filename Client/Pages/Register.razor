@@ -1,0 +1,100 @@
+﻿
+@using System.Text.Json;
+@using System.Text;
+@inject HttpClient _httpClient
+@inject NavigationManager _navigationManager
+    
+<div class="ma-6 d-flex justify-center">
+    <MudChip Color="Color.Primary">
+        <h3>Registration Form</h3>
+    </MudChip>
+</div>
+<div class="ma-6 d-flex  justify-center">
+    <MudCard Width="500px">
+        <MudForm Model="registrationModel" @ref="form" Validation="registrationValidator.ValidateValue">
+            <MudCardContent>
+
+                @if (!string.IsNullOrEmpty(APIErrorMessage))
+                {
+                    <MudChip Class="d-flex justify-center" Color="Color.Error">
+                        <h3>@APIErrorMessage</h3>
+                    </MudChip>
+                }
+
+                <MudTextField @bind-Value="registrationModel.UserName"
+                              For="@(() => registrationModel.UserName)"
+                              Immediate="true"
+                              Label="First Name" />
+                <MudTextField @bind-Value="registrationModel.Email"
+                              For="@(() => registrationModel.Email)"
+                              Immediate="true"
+                              Label="Email" />
+
+                <MudTextField @bind-Value="registrationModel.Password"
+                              For="@(() => registrationModel.Password)"
+                              Immediate="true"
+                              Label="Password" InputType="InputType.Password" />
+
+                <MudTextField @bind-Value="registrationModel.ConfirmPassword"
+                              For="@(() => registrationModel.ConfirmPassword)"
+                              Immediate="true"
+                              Label="Confirm Password" InputType="InputType.Password" />
+                <MudCardActions>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="RegisterAsync">Register</MudButton>
+                </MudCardActions>
+                Already have an account? <MudButton Color="Color.Primary" Class="ml-auto"  @onclick="ReloadComponent">Login</MudButton>
+            </MudCardContent>
+        </MudForm>
+    </MudCard>
+</div>
+@code {
+    RegistrationModel registrationModel = new RegistrationModel();
+    RegistrationValidation registrationValidator = new RegistrationValidation();
+
+    MudForm form;
+
+    string APIErrorMessage = string.Empty;
+
+    private async Task RegisterAsync()
+    {
+        await form.Validate();
+        if (form.IsValid)
+        {
+            var jsonPayload = JsonSerializer.Serialize(registrationModel);
+            var requestContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+
+            var response = await _httpClient.PostAsync("/User/Register", requestContent);
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var errors = await response.Content
+                .ReadFromJsonAsync<Dictionary<string, List<string>>>();
+                if (errors.Count > 0)
+                {
+                    foreach (var item in errors)
+                    {
+                        foreach (var errorMessage in item.Value)
+                        {
+                            APIErrorMessage = $"{errorMessage} | ";
+                        }
+                    }
+                }
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                Console.WriteLine("data padindhi pandaga chesko");
+                _navigationManager.NavigateTo("/registration-confirmation");
+            }
+            else
+            {
+                APIErrorMessage = "Failed To Register User Please Try After SomeTime";
+            }
+        }
+    }
+   
+
+    private void ReloadComponent()
+    {
+        _navigationManager.NavigateTo("/");
+    }
+}

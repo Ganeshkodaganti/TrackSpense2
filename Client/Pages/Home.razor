@@ -1,0 +1,39 @@
+﻿@page "/login"
+@page "/register"
+@inject NavigationManager NavigationManager
+
+<MudContainer Class="remove-container-margin">
+    <MudGrid Container="Container.Fluid">
+        <MudItem xs="12" md="8">
+            <div class="left-half">
+                <MudGrid Spacing="0" Justify="Justify.Center">
+                    <!-- Content for the left half goes here -->
+                    <MudItem xs="12">
+                        <MudImage Src="images/expense.png" Fluid="true" Class="rounded-lg" />
+                    </MudItem>
+                    
+                </MudGrid>
+            </div>
+        </MudItem>
+        <MudItem xs="12" md="4">
+            <div class="right-half">
+                    <MudGrid Spacing="0" Justify="Justify.Center">
+                        <!-- Content for the right half goes here -->
+                        <MudItem xs="12">
+                        @if ((NavigationManager.Uri == NavigationManager.BaseUri + "") || (NavigationManager.Uri == NavigationManager.BaseUri + "login"))
+                        {
+                           <Login />
+                        }
+                        @if (NavigationManager.Uri == NavigationManager.BaseUri + "register")
+                        {
+                            <Register />
+                        }
+                        </MudItem>
+                    </MudGrid>
+            </div>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+@code {
+
+}

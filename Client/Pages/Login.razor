@@ -1,0 +1,105 @@
+﻿
+@using System.Text.Json;
+@using System.Text;
+@using Blazored.LocalStorage;
+@using TrackSpense.Client.Providers;
+@inject HttpClient _http
+@inject ILocalStorageService _localStorageService
+@inject AuthenticationStateProvider _authStateProvider;
+@inject ISnackbar Snackbar
+@inject NavigationManager nav
+
+<div class="ma-6 d-flex justify-center">
+    <MudChip Color="Color.Primary">
+        <h3>Login Form</h3>
+    </MudChip>
+</div>
+
+
+<div class="ma-6 d-flex  justify-center">
+    <MudCard Width="500px">
+        <MudForm Model="loginModel" @ref="form" Validation="loginValidation.ValidateValue">
+            <MudCardContent>
+            
+                @if (!string.IsNullOrEmpty(APIErrorMessage))
+                {
+                    <MudChip Class="d-flex justify-center" Color="Color.Error">
+                        <h3>@APIErrorMessage</h3>
+                    </MudChip>
+                }
+
+                <MudTextField @bind-Value="loginModel.UserName"
+                              For="@(() => loginModel.UserName)"
+                              Immediate="true"
+                              Label="UserName" />
+                <MudTextField @bind-Value="loginModel.Password"
+                              For="@(() => loginModel.Password)"
+                              Immediate="true"
+                              Label="Password" InputType="InputType.Password" />
+                <MudCardActions>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="LoginAsync">Login</MudButton>
+                </MudCardActions>
+                Don't have an account? <MudButton Color="Color.Primary" Class="ml-auto" @onclick="ReloadComponent">Register</MudButton>
+            </MudCardContent>
+        </MudForm>
+    </MudCard>
+</div>
+@code{
+    LoginModel loginModel = new LoginModel();
+
+    LoginValidation loginValidation = new LoginValidation();
+
+    MudForm form;
+
+    string APIErrorMessage = string.Empty;
+
+    private async Task LoginAsync()
+    {
+        await form.Validate();
+        if (form.IsValid)
+        {
+
+            // Invoke Login API call.
+            var jsonPayload = JsonSerializer.Serialize(loginModel);
+            var requestContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+
+            var response = await _http.PostAsync("/User/Login", requestContent);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var errors = await response.Content
+                .ReadFromJsonAsync<Dictionary<string, List<string>>>();
+                if (errors.Count > 0)
+                {
+                    foreach (var item in errors)
+                    {
+                        foreach (var errorMessage in item.Value)
+                        {
+                            APIErrorMessage = $"{errorMessage} | ";
+                        }
+                    }
+                }
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                // On successful user authentication.
+                var tokenResponse = await response.Content.ReadFromJsonAsync<JWTTokenResponse>();
+                await _localStorageService.SetItemAsync<string>("jwt-access-token", tokenResponse.AccessToken);
+                (_authStateProvider as CustomAuthProvider).NotifyAuthState();
+                nav.NavigateTo("/");
+                Snackbar.Add("Login Successful", MudBlazor.Severity.Success);
+
+            }
+            else
+            {
+                APIErrorMessage = "Unable to do login, please try later";
+            }
+        }
+    }
+
+    private void ReloadComponent()
+    {
+        nav.NavigateTo("/register");
+    }
+}

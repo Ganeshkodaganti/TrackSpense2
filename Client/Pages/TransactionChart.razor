@@ -1,0 +1,32 @@
+﻿@inject TrackSpense.Client.StateContainers.SummaryStateContainer sumState
+
+
+<MudChart ChartType="ChartType.Donut" LegendPosition="Position.Right" Width="300px" Height="300px" InputData="@data" InputLabels="@labels">
+    <CustomGraphics>
+        <text class="donut-inner-text" x="47%" y="35%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="2">Total</text>
+        <text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">@data.Sum()</text>
+    </CustomGraphics>
+</MudChart>
+@code {
+    public double[] data = { };
+    public string[] labels = { };
+
+    List<SummaryItem>? summary = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        summary = sumState.Value;
+        List<string> tempLabel = new List<string>();
+        List<double> tempData = new List<double>();
+
+        foreach (var item in summary)
+        {
+            tempLabel.Add(item.Key);
+            tempData.Add(item.Value);
+        }
+        labels=tempLabel.ToArray();
+        data=tempData.ToArray();
+
+    }
+
+}

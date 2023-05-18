@@ -1,0 +1,110 @@
+﻿@page "/categories/add"
+@inject NavigationManager nav
+@using System.Text.Json;
+@using System.Text;
+@using System.IdentityModel.Tokens.Jwt;
+@inject HttpClient _httpClient
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ISnackbar Snackbar
+@inject TrackSpense.Client.StateContainers.CategoryStateContainer categoryState
+@using Newtonsoft.Json;
+
+
+<div class="ma-6 d-flex  justify-center">
+    <MudCard Width="500px">
+        <MudForm Model="categoryModel" @ref="form" Validation="categoryValidator.ValidateValue">
+            <MudCardContent>
+
+                @if (!string.IsNullOrEmpty(APIErrorMessage))
+                {
+                    <MudChip Class="d-flex justify-center" Color="Color.Error">
+                        <h3>@APIErrorMessage</h3>
+                    </MudChip>
+                }
+
+
+                <MudTextField @bind-Value="categoryModel.CategoryName"
+                              For="@(() => categoryModel.CategoryName)"
+                              Immediate="true"
+                              Label="Category Name" />
+     
+            </MudCardContent>
+
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="AddCategoryAsync">Add Category</MudButton>
+            </MudCardActions>
+        </MudForm>
+    </MudCard>
+</div>
+@code {
+    CategoryModel categoryModel = new CategoryModel();
+    CategoryValidation categoryValidator = new CategoryValidation();
+
+    MudForm form;
+
+    string APIErrorMessage = string.Empty;
+
+
+    private async Task AddCategoryAsync()
+    {
+        await form.Validate();
+        if (form.IsValid)
+        {
+
+            string token = await localStorage.GetItemAsync<string>("jwt-access-token");
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            string userId = jwtSecurityToken.Claims.FirstOrDefault(claim => claim.Type == "Id")?.Value;
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                // Use the user ID as needed
+                categoryModel.UserId = userId;
+                Console.WriteLine(userId);
+            }
+
+
+            var jsonPayload = System.Text.Json.JsonSerializer.Serialize(categoryModel);
+            var requestContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+
+            var response = await _httpClient.PostAsync("/Category/AddCategory", requestContent);
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var errors = await response.Content
+                .ReadFromJsonAsync<Dictionary<string, List<string>>>();
+                if (errors.Count > 0)
+                {
+                    foreach (var item in errors)
+                    {
+                        foreach (var errorMessage in item.Value)
+                        {
+                            APIErrorMessage = $"{errorMessage} | ";
+                        }
+                    }
+                }
+            }
+
+            else if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                CategoryModel categories = JsonConvert.DeserializeObject<CategoryModel>(responseContent);
+
+                List<CategoryModel> list =  categoryState.Value;
+                list.Add(categories);
+                categoryState.SetValue(list);
+                categoryModel.CategoryName = "";
+
+                nav.NavigateTo("/");
+                Snackbar.Add("Category added succesfully", MudBlazor.Severity.Success);
+                
+            }
+            else
+            {
+                APIErrorMessage = "Failed To Add Category Please Try After SomeTime";
+            }
+        }
+
+    }
+}

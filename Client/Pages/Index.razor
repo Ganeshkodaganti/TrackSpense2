@@ -1,0 +1,154 @@
+﻿@page "/"
+@inject IDialogService DialogService
+@using System.IdentityModel.Tokens.Jwt;
+@inject HttpClient _httpClient
+@using Newtonsoft.Json;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ISnackbar Snackbar
+@inject NavigationManager nav
+@inject TrackSpense.Client.StateContainers.TransactionStateContainer transactionState
+
+@using System
+@using System.Collections.Generic;
+@using System.Linq;
+<AuthorizeView>
+    <Authorized>
+
+        <MudContainer Class="remove-container-margin">
+            <MudGrid Container="Container.Fluid">
+                <MudItem xs="12" md="4">
+                    <div class="left-half">
+                        <MudGrid Spacing="0" Justify="Justify.Center">
+                            <!-- Content for the left half goes here -->
+                            <MudItem xs="12">
+                                <AddTransaction></AddTransaction>
+                            </MudItem>
+                            <MudItem xs="12">
+                                <AddCategory></AddCategory>
+                            </MudItem>
+
+                        </MudGrid>
+                    </div>
+                </MudItem>
+                <MudItem xs="12" md="8">
+                    <div class="right-half" style="overflow-x:hidden">
+                        <div class="scrollable-content">
+                            <MudGrid Spacing="4" Justify="Justify.Center">
+                                <!-- Content for the right half goes here -->
+                                <MudItem xs="6">
+                                    <MudCard Height="30vh">
+                                        <MudCardHeader>
+                                            <MudText Typo="Typo.h5" Color="Color.Dark">Total Expenditure :</MudText>
+                                        </MudCardHeader>
+                                        <MudCardContent>
+                                            <MudText Typo="Typo.h2" Color="Color.Error" Align="Align.Center">₹<b>@total</b></MudText>
+                                        </MudCardContent>
+                                    </MudCard>
+                                </MudItem>
+                                <MudItem xs="6">
+                                    <MudCard Height="30vh">
+                                        <MudCardHeader>
+                                            <MudText Typo="Typo.h5" Color="Color.Dark">Most Spent On :</MudText>
+                                        </MudCardHeader>
+                                        <MostSpent />
+                                    </MudCard>
+                                </MudItem>
+
+                                <MudGrid Spacing="@spacing" Justify="Justify.Center">
+                                    @if (transactions is not null)
+                                    {
+                                        @foreach (var transaction in transactions)
+                                        {
+                                            <MudItem xs="11">
+                                                <MudCard Style="background-color:white">
+                                                    <MudCardHeader>
+                                                        <CardHeaderContent>
+                                                            <MudText Typo="Typo.h4" TypoWeight="TypoWeight.Bold">@transaction.TransactionAmount</MudText>
+                                                            <MudText Typo="Typo.body2">@transaction.TransactionName</MudText>
+                                                        </CardHeaderContent>
+                                                        <CardHeaderActions>
+
+
+                                                            <MudIconButton @onclick="() => deleteTransaction(transaction.TransactionId)" Icon="@Icons.Material.Filled.Delete" Color="Color.Secondary" />
+                                                        </CardHeaderActions>
+                                                    </MudCardHeader>
+                                                    <MudCardContent>
+                                                        <MudText>@transaction.TransactionDate</MudText>
+                                                        <MudText Typo="Typo.body2">@transaction.TransactionDescription</MudText>
+                                                    </MudCardContent>
+                                                    <MudCardActions>
+                                                        <MudSpacer></MudSpacer>
+                                                        <MudText Variant="Variant.Text" Color="Color.Success"><b>@transaction.TransactionCategory.ToUpper()</b></MudText>
+                                                    </MudCardActions>
+                                                </MudCard>
+                                            </MudItem>
+
+                                        }
+                                    }
+                                </MudGrid>
+                            </MudGrid>
+                        </div>
+                    </div>
+                </MudItem>
+            </MudGrid>
+        </MudContainer>
+    </Authorized>
+    <NotAuthorized>
+        <Home></Home>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+    double total = 0.0;
+    public int spacing { get; set; } = 4;
+    List<TransactionModel> transactions;
+    private void OpenDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<EditTransaction>("Simple Dialog", options);
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (transactionState.Value == null)
+        {
+            string token = await localStorage.GetItemAsync<string>("jwt-access-token");
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            string userId = jwtSecurityToken.Claims.FirstOrDefault(claim => claim.Type == "Id")?.Value;
+
+            string url = $"/Transaction/GetTransactions?userId={userId}";
+            var response = await _httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                transactions = JsonConvert.DeserializeObject<List<TransactionModel>>(responseContent);
+                transactionState.SetValue(transactions);
+
+
+            }
+        }
+        else
+        {
+            transactions = transactionState.Value;
+        }
+        foreach (var transaction in transactions)
+        {
+            total += transaction.TransactionAmount;
+
+        }
+
+    }
+    private async Task deleteTransaction(string TransactionId)
+    {
+        string url = $"/Transaction/DeleteTransaction?transactionId={TransactionId}";
+        var response = await _httpClient.DeleteAsync(url);
+        nav.NavigateTo("/", true);
+        Snackbar.Add("Transaction Deleted", MudBlazor.Severity.Error);
+    }
+}
