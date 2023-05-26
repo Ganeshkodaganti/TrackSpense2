@@ -1,0 +1,11 @@
+
+.right-half[b-reijbt1vm1] {
+    height: 83vh;
+    overflow-y: auto;
+}
+
+.scrollable-content[b-reijbt1vm1] {
+    max-height: calc(100vh - 64px); /* Subtract the height of the app bar if applicable */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}

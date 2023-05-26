@@ -1,0 +1,12 @@
+.left-half[b-ask71gpps0] {
+    height: 95vh;
+}
+
+.right-half[b-ask71gpps0] {
+    height: 95vh;
+}
+
+.scrollable-content[b-ask71gpps0] {
+    max-height: calc(100vh - 64px); /* Subtract the height of the app bar if applicable */
+}
+
