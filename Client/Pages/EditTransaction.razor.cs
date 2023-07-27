@@ -38,7 +38,7 @@ public partial class EditTransaction
         }
         else if (response.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            nav.NavigateTo("/", true);
+            nav.NavigateTo("/");
             Snackbar.Add("Transaction updated succesfully", MudBlazor.Severity.Success);
 
         }

@@ -25,9 +25,9 @@ public class CategoryController :Controller
         return await _categoryService.Add(category);
     }
     [HttpDelete("DeleteCategory")]
-    public async Task<Business_Category> Delete(Business_Category category)
+    public async Task<bool> Delete(string categoryId)
     {
-        return await _categoryService.Delete(category);
+        return await _categoryService.Delete(categoryId);
     }
 
 

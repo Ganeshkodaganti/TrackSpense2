@@ -1,79 +1,79 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\blazor.webassembly.js",
       "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\obj\\Debug\\net7.0\\build-gz\\WdyDojea.gz",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\obj\\Debug\\net7.0\\build-gz\\WdyDojea.gz",
       "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\obj\\Debug\\net7.0\\scopedcss\\bundle\\TrackSpense.Client.styles.css",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\obj\\Debug\\net7.0\\scopedcss\\bundle\\TrackSpense.Client.styles.css",
       "PackagePath": "staticwebassets\\TrackSpense.Client.styles.css"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\app.css",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\app.css",
       "PackagePath": "staticwebassets\\css\\app.css"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "PackagePath": "staticwebassets\\css\\open-iconic"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "PackagePath": "staticwebassets\\css\\open-iconic"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\README.md",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\README.md",
       "PackagePath": "staticwebassets\\css\\open-iconic\\README.md"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\images\\expense.png",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\images\\expense.png",
       "PackagePath": "staticwebassets\\images\\expense.png"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\images\\icon.png",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\images\\icon.png",
       "PackagePath": "staticwebassets\\images\\icon.png"
     },
     {
-      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\index.html",
+      "Id": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {

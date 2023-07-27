@@ -1,0 +1,10 @@
+﻿.scroll {
+    height: 83vh;
+    overflow-y: auto;
+}
+
+.scrollable-content {
+    max-height: calc(100vh - 64px); /* Subtract the height of the app bar if applicable */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}

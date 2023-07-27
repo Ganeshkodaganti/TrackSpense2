@@ -1,4 +1,6 @@
-﻿@page "/categories/add"
+﻿@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
 @inject NavigationManager nav
 @using System.Text.Json;
 @using System.Text;
@@ -27,7 +29,7 @@
                               For="@(() => categoryModel.CategoryName)"
                               Immediate="true"
                               Label="Category Name" />
-     
+
             </MudCardContent>
 
             <MudCardActions>
@@ -39,7 +41,7 @@
 @code {
     CategoryModel categoryModel = new CategoryModel();
     CategoryValidation categoryValidator = new CategoryValidation();
-
+    List<CategoryModel> list = new List<CategoryModel>();
     MudForm form;
 
     string APIErrorMessage = string.Empty;
@@ -51,59 +53,72 @@
         if (form.IsValid)
         {
 
-            string token = await localStorage.GetItemAsync<string>("jwt-access-token");
-            var handler = new JwtSecurityTokenHandler();
-            var jwtSecurityToken = handler.ReadJwtToken(token);
-            string userId = jwtSecurityToken.Claims.FirstOrDefault(claim => claim.Type == "Id")?.Value;
-
-            if (!string.IsNullOrEmpty(userId))
+            if ((categoryState.Value is null) || (categoryState.Value.Find(x => x.CategoryName == categoryModel.CategoryName) == null))
             {
-                // Use the user ID as needed
-                categoryModel.UserId = userId;
-                Console.WriteLine(userId);
-            }
+                string token = await localStorage.GetItemAsync<string>("jwt-access-token");
+                var handler = new JwtSecurityTokenHandler();
+                var jwtSecurityToken = handler.ReadJwtToken(token);
+                string userId = jwtSecurityToken.Claims.FirstOrDefault(claim => claim.Type == "Id")?.Value;
 
-
-            var jsonPayload = System.Text.Json.JsonSerializer.Serialize(categoryModel);
-            var requestContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
-
-
-            var response = await _httpClient.PostAsync("/Category/AddCategory", requestContent);
-            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-            {
-                var errors = await response.Content
-                .ReadFromJsonAsync<Dictionary<string, List<string>>>();
-                if (errors.Count > 0)
+                if (!string.IsNullOrEmpty(userId))
                 {
-                    foreach (var item in errors)
+                    // Use the user ID as needed
+                    categoryModel.UserId = userId;
+                }
+
+
+                var jsonPayload = System.Text.Json.JsonSerializer.Serialize(categoryModel);
+                var requestContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+
+                var response = await _httpClient.PostAsync("/Category/AddCategory", requestContent);
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var errors = await response.Content
+                    .ReadFromJsonAsync<Dictionary<string, List<string>>>();
+                    if (errors.Count > 0)
                     {
-                        foreach (var errorMessage in item.Value)
+                        foreach (var item in errors)
                         {
-                            APIErrorMessage = $"{errorMessage} | ";
+                            foreach (var errorMessage in item.Value)
+                            {
+                                APIErrorMessage = $"{errorMessage} | ";
+                            }
                         }
                     }
                 }
-            }
 
-            else if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
+                else if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
 
-                CategoryModel categories = JsonConvert.DeserializeObject<CategoryModel>(responseContent);
+                    CategoryModel categories = JsonConvert.DeserializeObject<CategoryModel>(responseContent);
 
-                List<CategoryModel> list =  categoryState.Value;
-                list.Add(categories);
-                categoryState.SetValue(list);
-                categoryModel.CategoryName = "";
+                    if (categoryState.Value is not null)
+                        list = categoryState.Value;
 
-                nav.NavigateTo("/");
-                Snackbar.Add("Category added succesfully", MudBlazor.Severity.Success);
-                
+                    if (categories is not null)
+                        list.Add(categories);
+
+                    categoryState.SetValue(list);
+                    categoryModel.CategoryName = "";
+
+                    Snackbar.Add("Category added succesfully", MudBlazor.Severity.Success);
+                    StateHasChanged();
+
+
+                }
+                else
+                {
+                    APIErrorMessage = "Failed To Add Category Please Try After SomeTime";
+                }
             }
             else
             {
-                APIErrorMessage = "Failed To Add Category Please Try After SomeTime";
+                categoryModel.CategoryName = "";
+                Snackbar.Add("Category already exists", MudBlazor.Severity.Error);
             }
+
         }
 
     }

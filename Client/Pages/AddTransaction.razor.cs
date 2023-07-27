@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Json;
 using System.Text;
@@ -12,11 +13,11 @@ public partial class AddTransaction
 {
 
 
-    List<CategoryModel> categories;
+    List<CategoryModel> categories = new List<CategoryModel>();
     TransactionModel transactionModel = new TransactionModel();
     TransactionValidation transactionValidator = new TransactionValidation();
 
-    MudForm form;
+    MudForm? form;
 
     string APIErrorMessage = string.Empty;
 
@@ -30,7 +31,8 @@ public partial class AddTransaction
         await form.Validate();
         if (form.IsValid)
         {
-            transactionModel.TransactionDate = DateTime.Now;
+           
+            //transactionModel.TransactionDate = DateTime.Now;
             string token = await localStorage.GetItemAsync<string>("jwt-access-token");
             var handler = new JwtSecurityTokenHandler();
             var jwtSecurityToken = handler.ReadJwtToken(token);
@@ -70,10 +72,17 @@ public partial class AddTransaction
                 var responseContent = await response.Content.ReadAsStringAsync();
                 TransactionModel transactions = JsonConvert.DeserializeObject<TransactionModel>(responseContent);
                 List<TransactionModel> list = transactionState.Value;
-                list.Add(transactions);
+                list.Insert(0,transactions);
                 transactionState.SetValue(list);
+
+                //emptying transaction values 
+                transactionModel.TransactionName="";
+                transactionModel.TransactionAmount =0;
+                transactionModel.TransactionCategory = "";
+                transactionModel.TransactionDescription = "";
+
+                Snackbar.Add("Transaction added successfully", MudBlazor.Severity.Success);
                 nav.NavigateTo("/");
-                Snackbar.Add("Transaction added succesfully", MudBlazor.Severity.Success);
             }
             else
             {
@@ -103,6 +112,10 @@ public partial class AddTransaction
                 categoryState.SetValue(categories);
 
             }
+        }
+        else
+        {
+            categories=categoryState.Value;
         }
     }
 }

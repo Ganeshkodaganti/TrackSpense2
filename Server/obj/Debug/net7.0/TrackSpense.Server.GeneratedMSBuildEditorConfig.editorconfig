@@ -9,13 +9,13 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TrackSpense.Server
 build_property.RootNamespace = TrackSpense.Server
-build_property.ProjectDir = C:\Users\ganesh.kodaganti\Desktop\TrackSpense\TrackSpense\Server\
+build_property.ProjectDir = C:\Users\ganesh.kodaganti\Desktop\Desktop\TrackSpense\TrackSpense\Server\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\ganesh.kodaganti\Desktop\TrackSpense\TrackSpense\Server
+build_property.MSBuildProjectDirectory = C:\Users\ganesh.kodaganti\Desktop\Desktop\TrackSpense\TrackSpense\Server
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/ganesh.kodaganti/Desktop/TrackSpense/TrackSpense/Server/Pages/Error.cshtml]
+[C:/Users/ganesh.kodaganti/Desktop/Desktop/TrackSpense/TrackSpense/Server/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

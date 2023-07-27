@@ -1,0 +1,146 @@
+﻿@page "/categories/add"
+@inject TrackSpense.Client.StateContainers.CategoryStateContainer categoryState;
+@inject HttpClient _httpClient
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ISnackbar Snackbar
+@inject NavigationManager nav
+@using Newtonsoft.Json
+@using System.Text.Json;
+@using System.Text;
+@using System.IdentityModel.Tokens.Jwt;
+@*<MudContainer Class="remove-container-margin">
+    <MudGrid Container="Container.Fluid">
+        <MudItem xs="12" md="12">
+            <div class="scroll" style="overflow-x:hidden">
+                <div class="scrollable-content">
+                    <MudGrid Spacing="2" Justify="Justify.Center">
+                        @foreach (var category in categories)
+                        {
+                            <MudItem xs="11">
+                                <MudCard>
+                                    <MudCardHeader>
+                                        <CardHeaderContent>
+                                            <MudText Typo="Typo.h6">@category.CategoryName</MudText>
+                                        </CardHeaderContent>
+                                        <CardHeaderActions>
+                                            <MudIconButton @onclick="() => updateCategory(category)" Icon="@Icons.Material.Filled.Edit" Color="Color.Default" />
+                                            <MudIconButton @onclick="() => deleteCategory(category)" Icon="@Icons.Material.Filled.Delete" Color="Color.Secondary" />
+
+                                        </CardHeaderActions>
+                                    </MudCardHeader>
+                                </MudCard>
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </div>
+            </div>
+        </MudItem>
+    </MudGrid>
+</MudContainer>*@
+<MudContainer Class="remove-container-margin">
+    <MudGrid Container="Container.Fluid">
+        <MudItem xs="12" md="12">
+            <div class="scroll" style="overflow-x:hidden">
+                <div class="scrollable-content">
+                    <MudGrid Spacing="4" Justify="Justify.Center">
+                        <!-- Content for the right half goes here -->
+                        <MudItem xs="12">
+                            <AddCategory></AddCategory>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudGrid Spacing="2" Justify="Justify.Center">
+                                @if (categories.Count() == 0)
+                                {
+                                    <MudItem xs="12">
+                                        <MudCard>
+                                            <MudText Typo="Typo.h6" TypoWeight="TypoWeight.Bold">
+                                                No Categories to show......!
+                                            </MudText>
+
+                                        </MudCard>
+                                    </MudItem>
+                                }
+                                @if (categories.Count() > 0)
+                                {
+                                    @foreach (var category in categories)
+                                    {
+                                        <MudItem xs="12">
+                                            <MudCard>
+                                                <MudCardHeader>
+                                                    <CardHeaderContent>
+                                                        <MudText Typo="Typo.h6">@category.CategoryName</MudText>
+                                                    </CardHeaderContent>
+                                                    <CardHeaderActions>
+                                                        <MudTooltip Text="Edit">
+                                                            <MudIconButton @onclick="() => updateCategory(category)" Icon="@Icons.Material.Filled.Edit" Color="Color.Default" />
+                                                        </MudTooltip>
+                                                        <MudTooltip Text="Delete">
+                                                            <MudIconButton @onclick="() => deleteCategory(category)" Icon="@Icons.Material.Filled.Delete" Color="Color.Secondary" />
+                                                        </MudTooltip>
+
+                                                    </CardHeaderActions>
+                                                </MudCardHeader>
+                                            </MudCard>
+                                        </MudItem>
+                                    }
+                                }
+                            </MudGrid>
+                        </MudItem>
+                    </MudGrid>
+                </div>
+            </div>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+@code {
+    public bool _loading;
+    List<CategoryModel> categories = new List<CategoryModel>();
+
+
+    private async Task deleteCategory(CategoryModel category)
+    {
+        string url = $"/Category/DeleteCategory?categoryId={category.CategoryId}";
+        var response = await _httpClient.DeleteAsync(url);
+
+        if (response.IsSuccessStatusCode)
+        {
+            categories.RemoveAll(x => x.CategoryId == category.CategoryId);
+            categoryState.SetValue(categories);
+
+            Snackbar.Add("Category Deleted", MudBlazor.Severity.Error);
+            StateHasChanged();
+        }
+    }
+    private async Task updateCategory(CategoryModel category)
+    {
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (categoryState.Value == null)
+        {
+            string token = await localStorage.GetItemAsync<string>("jwt-access-token");
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            string userId = jwtSecurityToken.Claims.FirstOrDefault(claim => claim.Type == "Id")?.Value;
+
+            string url = $"/Category/GetCategories?userId={userId}";
+            var response = await _httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                categories = JsonConvert.DeserializeObject<List<CategoryModel>>(responseContent);
+                categoryState.SetValue(categories);
+
+            }
+        }
+        else
+        {
+            categories = categoryState.Value;
+        }
+    }
+}

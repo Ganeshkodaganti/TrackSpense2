@@ -1,5 +1,4 @@
-﻿
-@inject IDialogService DialogService
+﻿@inject IDialogService DialogService
 @using System.IdentityModel.Tokens.Jwt;
 @inject HttpClient _httpClient
 @using Newtonsoft.Json;
@@ -9,12 +8,23 @@
 @inject TrackSpense.Client.StateContainers.TransactionStateContainer transactionState;
 
 <div class="ma-6 d-flex  justify-center">
-<MudGrid Spacing="@spacing" Justify="Justify.Center">
-        @if (transactions is not null)
+    <MudGrid >
+        @if (transactions.Count() == 0)
+        {
+            <MudItem xs="12">
+                <MudCard>
+                    <MudText Typo="Typo.h6" TypoWeight="TypoWeight.Bold">
+                        No Transactions to show......!
+                    </MudText>
+
+                </MudCard>
+            </MudItem>
+        }
+        @if (transactions.Count() > 0)
         {
             @foreach (var transaction in transactions)
             {
-                <MudItem xs="11">
+                <MudItem xs="12">
                     <MudCard>
                         <MudCardHeader>
                             <CardHeaderContent>
@@ -23,7 +33,7 @@
                             </CardHeaderContent>
                             <CardHeaderActions>
                                 <MudIconButton @onclick="(e) => UpdateTransaction(transaction)" Icon="@Icons.Material.Filled.Edit" Color="Color.Default" />
-                                <MudIconButton @onclick="() => deleteTransaction(transaction.TransactionId)" Icon="@Icons.Material.Filled.Delete" Color="Color.Secondary" />
+                                <MudIconButton @onclick="() => deleteTransaction(transaction)" Icon="@Icons.Material.Filled.Delete" Color="Color.Secondary" />
 
                             </CardHeaderActions>
                         </MudCardHeader>
@@ -43,8 +53,8 @@
 
 </div>
 @code {
-    public int spacing { get; set; } = 4;
-    List<TransactionModel> transactions;
+
+    List<TransactionModel> transactions = new List<TransactionModel>();
     private void OpenDialog()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
@@ -89,15 +99,20 @@
             transactions = transactionState.Value;
         }
 
-    }  
-    private async Task deleteTransaction(string TransactionId)
+    }
+    private async Task deleteTransaction(TransactionModel transaction)
     {
-        string url = $"/Transaction/DeleteTransaction?transactionId={TransactionId}";
+        string url = $"/Transaction/DeleteTransaction?transactionId={transaction.TransactionId}";
         var response = await _httpClient.DeleteAsync(url);
-        Snackbar.Add("Transaction Deleted", MudBlazor.Severity.Error);
-        nav.NavigateTo("/transactions", true);
 
+        if (response.IsSuccessStatusCode)
+        {
+            transactions.RemoveAll(x => x.TransactionId == transaction.TransactionId);
+            transactionState.SetValue(transactions);
 
+            Snackbar.Add("Transaction Deleted", MudBlazor.Severity.Error);
+            StateHasChanged();
+        }
     }
     private async Task UpdateTransaction(TransactionModel transaction)
     {

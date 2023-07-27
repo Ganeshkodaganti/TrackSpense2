@@ -7,14 +7,14 @@
 @inject TrackSpense.Client.StateContainers.SummaryStateContainer sumState
 
 <MudCardContent>
-    @if (summary is not null)
+    @if (summary.Count() > 0)
     {
         <MudText Typo="Typo.h2" Style="color:blue" Align="Align.Center"><b>@summary[0].Key</b></MudText>
     }
 </MudCardContent>
 @code {
 
-    List<SummaryItem> summary;
+    List<SummaryItem> summary=new List<SummaryItem>();
 
     protected override async Task OnInitializedAsync()
     {

@@ -31,19 +31,19 @@ public class UserController : Controller
     }
 
     //token 2
-   /* public UserController(IOptions<TokenSettings> tokenSettings)
-    { 
-        _tokenSettings = tokenSettings.Value;
-    }*/
+    /* public UserController(IOptions<TokenSettings> tokenSettings)
+     { 
+         _tokenSettings = tokenSettings.Value;
+     }*/
 
     [HttpPost("Register")]
-    public async Task<bool> RegisterUser([FromBody]Business_User user)
+    public async Task<bool> RegisterUser([FromBody] Business_User user)
     {
         var UsernameExists = await IsUsernameExists(user.UserName);
         //Encrypting password using BCrpt
-        user.Password=BCrypt.Net.BCrypt.HashPassword(user.Password);
+        user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
         if (UsernameExists == false)
-        {   
+        {
             await _userService.Add(new Business_User()
             {
                 UserId = "",
@@ -63,9 +63,9 @@ public class UserController : Controller
     public async Task<JWTTokenResponseDto> LoginUser([FromBody] Business_User user)
     {
         var UsernameExists = await IsUsernameExists(user.UserName);
-        if (UsernameExists == false) return null; 
+        if (UsernameExists == false) return null;
 
-        Business_User business_User = await _userService.Get(user.UserName,user.Password);
+        Business_User business_User = await _userService.Get(user.UserName, user.Password);
 
         //returning a token
         string jwtAccessToken = GenerateJwtAccessToken(business_User);
@@ -73,7 +73,7 @@ public class UserController : Controller
         {
             AccessToken = jwtAccessToken,
         };
-         
+
         return result;
 
     }
@@ -89,22 +89,29 @@ public class UserController : Controller
     [HttpPost("GenerateJwtAcessToken")]
     public string GenerateJwtAccessToken(Business_User user)
     {
-        var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenSettings.SecretKey));
+        try
+        {
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenSettings.SecretKey));
 
-        var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
-        var claims = new List<Claim>();
-        claims.Add(new Claim("Id", user.UserId.ToString()));
-        claims.Add(new Claim("UserName", user?.UserName ?? string.Empty));
-        claims.Add(new Claim("Email", user?.Email ?? string.Empty));
+            var claims = new List<Claim>();
+            claims.Add(new Claim("Id", user.UserId.ToString()));
+            claims.Add(new Claim("UserName", user?.UserName ?? string.Empty));
+            claims.Add(new Claim("Email", user?.Email ?? string.Empty));
 
-        var securityToken = new JwtSecurityToken(
-            issuer: _tokenSettings.Issuer,
-            audience: _tokenSettings.Audience,
-            expires: DateTime.Now.AddMinutes(30),
-            signingCredentials: credentials,
-            claims: claims);
+            var securityToken = new JwtSecurityToken(
+                issuer: _tokenSettings.Issuer,
+                audience: _tokenSettings.Audience,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: credentials,
+                claims: claims);
 
-        return new JwtSecurityTokenHandler().WriteToken(securityToken);
+            return new JwtSecurityTokenHandler().WriteToken(securityToken);
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
     }
 }

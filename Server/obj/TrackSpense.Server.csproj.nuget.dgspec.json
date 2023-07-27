@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Server\\TrackSpense.Server.csproj": {}
+    "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Server\\TrackSpense.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.BL\\TrackSpense.BL.csproj": {
+    "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.BL\\TrackSpense.BL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.BL\\TrackSpense.BL.csproj",
+        "projectUniqueName": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.BL\\TrackSpense.BL.csproj",
         "projectName": "TrackSpense.BL",
-        "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.BL\\TrackSpense.BL.csproj",
+        "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.BL\\TrackSpense.BL.csproj",
         "packagesPath": "C:\\Users\\ganesh.kodaganti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.BL\\obj\\",
+        "outputPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.BL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ganesh.kodaganti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,11 +28,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.DAL\\TrackSpense.DAL.csproj": {
-                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.DAL\\TrackSpense.DAL.csproj"
+              "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.DAL\\TrackSpense.DAL.csproj": {
+                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.DAL\\TrackSpense.DAL.csproj"
               },
-              "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj": {
-                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj"
+              "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj": {
+                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj"
               }
             }
           }
@@ -66,14 +66,14 @@
         }
       }
     },
-    "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.DAL\\TrackSpense.DAL.csproj": {
+    "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.DAL\\TrackSpense.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.DAL\\TrackSpense.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.DAL\\TrackSpense.DAL.csproj",
         "projectName": "TrackSpense.DAL",
-        "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.DAL\\TrackSpense.DAL.csproj",
+        "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.DAL\\TrackSpense.DAL.csproj",
         "packagesPath": "C:\\Users\\ganesh.kodaganti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.DAL\\obj\\",
+        "outputPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ganesh.kodaganti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -90,8 +90,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj": {
-                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj"
+              "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj": {
+                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj"
               }
             }
           }
@@ -159,14 +159,14 @@
         }
       }
     },
-    "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\TrackSpense.Client.csproj": {
+    "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\TrackSpense.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\TrackSpense.Client.csproj",
+        "projectUniqueName": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\TrackSpense.Client.csproj",
         "projectName": "TrackSpense.Client",
-        "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\TrackSpense.Client.csproj",
+        "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\TrackSpense.Client.csproj",
         "packagesPath": "C:\\Users\\ganesh.kodaganti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\obj\\",
+        "outputPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ganesh.kodaganti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -183,8 +183,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj": {
-                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj"
+              "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj": {
+                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj"
               }
             }
           }
@@ -264,14 +264,14 @@
         }
       }
     },
-    "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Server\\TrackSpense.Server.csproj": {
+    "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Server\\TrackSpense.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Server\\TrackSpense.Server.csproj",
+        "projectUniqueName": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Server\\TrackSpense.Server.csproj",
         "projectName": "TrackSpense.Server",
-        "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Server\\TrackSpense.Server.csproj",
+        "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Server\\TrackSpense.Server.csproj",
         "packagesPath": "C:\\Users\\ganesh.kodaganti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Server\\obj\\",
+        "outputPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ganesh.kodaganti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -288,14 +288,14 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.BL\\TrackSpense.BL.csproj": {
-                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense.BL\\TrackSpense.BL.csproj"
+              "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.BL\\TrackSpense.BL.csproj": {
+                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense.BL\\TrackSpense.BL.csproj"
               },
-              "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\TrackSpense.Client.csproj": {
-                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Client\\TrackSpense.Client.csproj"
+              "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\TrackSpense.Client.csproj": {
+                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Client\\TrackSpense.Client.csproj"
               },
-              "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj": {
-                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj"
+              "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj": {
+                "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj"
               }
             }
           }
@@ -352,14 +352,14 @@
         }
       }
     },
-    "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj": {
+    "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj",
         "projectName": "TrackSpense.Shared",
-        "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj",
+        "projectPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\TrackSpense.Shared.csproj",
         "packagesPath": "C:\\Users\\ganesh.kodaganti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\TrackSpense\\TrackSpense\\Shared\\obj\\",
+        "outputPath": "C:\\Users\\ganesh.kodaganti\\Desktop\\Desktop\\TrackSpense\\TrackSpense\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ganesh.kodaganti\\AppData\\Roaming\\NuGet\\NuGet.Config",

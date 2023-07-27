@@ -1,43 +1,52 @@
 ﻿@page "/transactions"
+@inject NavigationManager nav
+
+
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
 
 <MudContainer Class="remove-container-margin">
     <MudGrid Container="Container.Fluid">
         <MudItem xs="12" md="12">
-            <div class="right-half" style="overflow-x:hidden">
+            <div class="scroll" style="overflow-x:hidden">
                 <div class="scrollable-content">
                     <MudGrid Spacing="4" Justify="Justify.Center">
                         <!-- Content for the right half goes here -->
                         <MudItem xs="6">
-                            <MudCard >
-                                <TransactionChart></TransactionChart>
+                            <MudCard>
+                                <TransactionChart />
                             </MudCard>
                         </MudItem>
                         <MudItem xs="6">
-                            <MudCard Height="30vh">
+                            <MudCard>
+                                <TransactionLineChart />
+                            </MudCard>
+                        </MudItem>
+                        <MudItem xs="11">
+                            <MudCard>
                                 <MudCardHeader>
-                                    <MudText Typo="Typo.h5" Color="Color.Dark">Most Spent On :</MudText>
+                                    <CardHeaderContent>
+                                        <MudText Typo="Typo.body2">Filter the Transactions by date :</MudText>
+                                    </CardHeaderContent>
                                 </MudCardHeader>
-                               @* <MostSpent />*@
+                                <MudDateRangePicker Label="Basic range picker" @bind-DateRange="_dateRange" />
                             </MudCard>
                         </MudItem>
 
-                        <MudGrid Spacing="4" Justify="Justify.Center">
-
-                            @*@for (int i = 0; i < 20; ++i)
-                            {
-                                <MudItem xs="12">
-                                    <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">CHECK CHECK</MudPaper>
-                                </MudItem>
-                            }*@
-                            <TransactionDisplay />
-
-                        </MudGrid>
+                        <MudItem xs="12">
+                            <MudGrid Spacing="2" Justify="Justify.Center">
+                                <TransactionDisplay />
+                            </MudGrid>
+                        </MudItem>
                     </MudGrid>
                 </div>
             </div>
         </MudItem>
     </MudGrid>
 </MudContainer>
+
 @code {
+    private DateRange _dateRange = new DateRange(DateTime.Now.Date, DateTime.Now.AddDays(5).Date);
 
 }

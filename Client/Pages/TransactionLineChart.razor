@@ -1,0 +1,24 @@
+﻿@inject TrackSpense.Client.StateContainers.TransactionStateContainer transactionState
+<MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels"  Width="100%" Height="300px"></MudChart>
+
+@code {
+    private int Index = -1;
+
+    public List<ChartSeries> Series = new List<ChartSeries>()
+    {
+        new ChartSeries() { Name = "Series 1", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
+        new ChartSeries() { Name = "Series 2", Data = new double[] { 10, 41, 35, 51, 49, 62, 69, 91, 148 } },
+    };
+    public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
+
+    List<TransactionModel> transactions = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        transactions = transactionState.Value;
+
+    }
+
+   
+}

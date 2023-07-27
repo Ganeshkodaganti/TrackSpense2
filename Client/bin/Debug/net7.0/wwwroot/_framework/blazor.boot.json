@@ -209,15 +209,15 @@
       "mscorlib.dll": "sha256-3H8zsATEgIcRSRoZhWYtgfKT5VniJvhcYxLruf8koAY=",
       "netstandard.dll": "sha256-bbx+pnJNmXZyPqAgESJnWLJsbfuAl0UflLCdl9slPYE=",
       "System.Private.CoreLib.dll": "sha256-pUYF+nr8SzfBMCLc3FM2i\/YivXJlzztdLin+aUsoqP0=",
-      "TrackSpense.Shared.dll": "sha256-XCoqlme\/nxyENaqsipQB++Yq+gRt70WJIsMkQ62bPis=",
-      "TrackSpense.Client.dll": "sha256-NpCciRPaNeO54KaUWdKaqSCHynMH0ubmx65TrOWqhcM="
+      "TrackSpense.Shared.dll": "sha256-XHVNnkqiCy\/5L1Qy6HFyc43W84G36xPvo8zpjQO2w2Y=",
+      "TrackSpense.Client.dll": "sha256-ghV3QVB\/jFtqgeF6W5UqOsLanH2jL1GIScYzouE6hvc="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "TrackSpense.Shared.pdb": "sha256-5irLJ8jPCY1UuTiZ8o\/fHlr69flyCwivvQZ097n5Jsc=",
-      "TrackSpense.Client.pdb": "sha256-qMSzyrHIRSbdfRdI8zdLJPCQq2O4RMvXK+1eJapgkAA="
+      "TrackSpense.Shared.pdb": "sha256-Wtr+JjKawEF\/0NGkANk1xXMiLOWT6D40Db\/CSC1cCig=",
+      "TrackSpense.Client.pdb": "sha256-zZJ4XkdadSCtmqclw4wL5fyWOySWdCkvt2PmXExsVR4="
     },
     "runtime": {
       "dotnet.7.0.4.4qz3elxxs3.js": "sha256-3l+4ZYRWpGMbBjNqeIqO9T\/65euaOzIvRlVX2SySvFQ=",
